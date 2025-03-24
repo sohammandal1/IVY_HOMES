@@ -38,7 +38,6 @@ prefix_queues = {version: queue.Queue() for version in BASE_URLS.keys()}
 
 
 def fetch_names(api_version, query, retry_count=0):
-    """Fetch autocomplete suggestions with synchronized API requests and exponential backoff."""
     url = BASE_URLS[api_version] + query
 
     try:
@@ -68,7 +67,6 @@ def fetch_names(api_version, query, retry_count=0):
 
 
 def explore_names(api_version):
-    """Thread-safe exploration of names with rate-limited requests."""
     while not prefix_queues[api_version].empty():
         query_prefix = prefix_queues[api_version].get()
 
